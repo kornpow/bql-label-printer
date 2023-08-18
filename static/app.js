@@ -43,12 +43,18 @@ function buildForm() {
     const inputs = wrapper.querySelectorAll('.input');
     form.innerHTML = '';
 
+    const currentDate = new Date();
+    const currentDateString = currentDate.toString();
+
     for (let input of inputs) {
 
         let inp = document.createElement('textarea');
 
         if (input.dataset.value) {
             inp.placeholder = input.dataset.value;
+            if (input.date) {
+                inp.placeholder = currentDateString;
+            }
             inp.oninput = function () {
                 input.dataset.value = inp.value;
                 if (input.qrcode) {
