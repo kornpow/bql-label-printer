@@ -53,7 +53,7 @@ function buildForm() {
         if (input.dataset.value) {
             inp.placeholder = input.dataset.value;
             if (input.date) {
-                inp.placeholder = currentDateString;
+                inp.placeholder = input.date;
             }
             inp.oninput = function () {
                 input.dataset.value = inp.value;
@@ -63,6 +63,10 @@ function buildForm() {
             };
         } else {
             inp.placeholder = input.innerText;
+            if (input.date) {
+                inp.placeholder = input.date;
+                inp.value = input.date;
+            }
             inp.oninput = function () {
                 input.innerText = inp.value;
             };
@@ -82,6 +86,26 @@ function buildQR() {
         input.qrcode.makeCode(input.dataset.value);
     }
 }
+
+function buildDate() {
+    const inputs = wrapper.querySelectorAll('.date');
+
+    for (let input of inputs) {
+        const currentDate = new Date();
+        const currentDateString = currentDate.toString();
+    
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');  // Months are 0-indexed in JavaScript
+        const day = String(currentDate.getDate()).padStart(2, '0');
+    
+        const customDateString = `${year}-${month}-${day}`;
+        console.log(customDateString);  // e.g., '2021-08-04'
+
+
+        input.date = customDateString;
+    }
+}
+
 
 /**
  * Return the currently used label size
