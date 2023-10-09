@@ -25,7 +25,7 @@ BACKEND_STRING_DESCR = None
 LABEL_SIZES = [(name, label_type_specs[name]['name']) for name in label_sizes]
 
 
-@app.route('/')
+@app.route('/editor')
 def do_editor():
     """
     The main editor view

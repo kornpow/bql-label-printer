@@ -26,6 +26,7 @@ if (labelSelect) {
 
                 buildForm();
                 buildQR();
+                buildDate();
             })
             .catch(function (error) {
                 console.error('oops, something went wrong!', error);
@@ -36,6 +37,17 @@ if (labelSelect) {
     labelSelect.onchange(); // first load
 }
 
+
+// let datePicker = document.createElement('input');
+
+// // Set the type to 'date'
+// datePicker.type = 'date';
+
+// // Set other properties
+// datePicker.id = 'datePicker';
+// datePicker.value = '2023-08-10';
+// datePicker.min = '2020-01-01';
+// datePicker.max = '2025-12-31';
 /**
  * Create the input form for the loaded template
  */
@@ -46,27 +58,51 @@ function buildForm() {
     const currentDate = new Date();
     const currentDateString = currentDate.toString();
 
+    // inputs is the preview
+    // inp is the form
     for (let input of inputs) {
 
-        let inp = document.createElement('textarea');
+        console.log(input.classList);
+        let inp;
+        if (input.classList.contains('date')) {
+            inp = document.createElement('input');
+            inp.type = 'date';
+            console.log("this is a date object");
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');  // Get day and format to 2 digits
+            let mm = String(today.getMonth() + 1).padStart(2, '0'); // Get month (0-indexed) and format to 2 digits
+            let yyyy = today.getFullYear();
+            inp.value = yyyy + '-' + mm + '-' + dd;
+            input.innerText = inp.value;
+        } else {
+            inp = document.createElement('textarea');
+        }
 
         if (input.dataset.value) {
+            console.log("if");
             inp.placeholder = input.dataset.value;
+            console.log(input.date);
             if (input.date) {
                 inp.placeholder = input.date;
+                inp.value = input.date;
+                inp.dataset.value = input.date;
             }
+
             inp.oninput = function () {
                 input.dataset.value = inp.value;
+                if (input.date) {
+                    inp.placeholder = input.date;
+                    inp.value = input.date;
+                    inp.dataset.value = input.date;
+                }
+
                 if (input.qrcode) {
                     input.qrcode.makeCode(inp.value);
                 }
             };
         } else {
+            console.log("else");
             inp.placeholder = input.innerText;
-            if (input.date) {
-                inp.placeholder = input.date;
-                inp.value = input.date;
-            }
             inp.oninput = function () {
                 input.innerText = inp.value;
             };
