@@ -8,7 +8,7 @@ const button = document.getElementById('btn');
  */
 if (labelSelect) {
     labelSelect.onchange = function loadTemplate() {
-        fetch('/static/labels/' + labelSelect.value + '.html')
+        fetch(window.location.pathname + '/static/labels/' + labelSelect.value + '.html')
             .then(function (response) {
                 if (response.ok) {
                     return response.text();
@@ -169,7 +169,7 @@ button.onclick = function () {
             fd.append('data', blob);
             fd.append('size', getSize());
 
-            return fetch('/print', {
+            return fetch(window.location.pathname + '/print', {
                 method: 'POST',
                 body: fd
             });

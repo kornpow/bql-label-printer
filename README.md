@@ -31,6 +31,11 @@ The templates need to contain exactly one root element, specifying the exact siz
 Elements containing an `input` class can be edited through the form.
 
 
+## Docker
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t repo:latest . --push
+```
+
 ## Special Input Types
 
 ### QRCodes
