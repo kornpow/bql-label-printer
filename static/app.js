@@ -109,6 +109,25 @@ function buildForm() {
         }
         form.appendChild(inp);
     }
+    // Create a new checkbox input element
+    const red_check = document.createElement('input');
+
+    // Set the type to 'checkbox'
+    red_check.type = 'checkbox';
+
+    // Optionally, set other attributes
+    red_check.id = 'myCheckbox';
+    red_check.value = 'false';
+
+    // Optionally, create and append a label
+    const label = document.createElement('label');
+    label.htmlFor = red_check.id;
+    label.appendChild(document.createTextNode('Allow red?'));
+
+    // Append the checkbox and label to the parent element
+    form.appendChild(red_check);
+    form.appendChild(label);
+
 }
 
 /**
@@ -169,6 +188,12 @@ button.onclick = function () {
             fd.append('data', blob);
             fd.append('size', getSize());
 
+            // Capture the checkbox value
+            const checkboxValue = document.getElementById('myCheckbox').checked;
+            fd.append('allow_red', checkboxValue);  // Add checkbox value to FormData
+
+            console.log(fd);
+            // TODO: do something here to pass down whether to print red or not
             return fetch(window.location.pathname + '/print', {
                 method: 'POST',
                 body: fd
@@ -183,6 +208,7 @@ button.onclick = function () {
             console.error('oops, something went wrong!', error);
             alert(error)
         })
+        alert("label printed")
     ;
 
     /* debugging:

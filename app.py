@@ -53,9 +53,12 @@ def do_print():
     Receive the image from the frontend and print it
     :return: string a simple 'ok' when no exception was thrown
     """
+    print(request.files['data'])
+    allow_red = request.form['allow_red']
+    print(f"allow red? {allow_red} {type(allow_red)}")
     im = Image.open(request.files['data'])
     qlr = BrotherQLRaster(MODEL)
-    create_label(qlr, im, request.form['size'], threshold=70, cut=True, rotate=90)
+    create_label(qlr, im, request.form['size'], threshold=70, cut=True, rotate=90, red=allow_red)
 
     # noinspection PyCallingNonCallable
     be = BACKEND_CLASS(BACKEND_STRING_DESCR)
