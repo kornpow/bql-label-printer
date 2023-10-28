@@ -54,7 +54,7 @@ def do_print():
     :return: string a simple 'ok' when no exception was thrown
     """
     print(request.files['data'])
-    allow_red = request.form['allow_red']
+    allow_red = request.form['allow_red'] == "true"
     print(f"allow red? {allow_red} {type(allow_red)}")
     im = Image.open(request.files['data'])
     qlr = BrotherQLRaster(MODEL)

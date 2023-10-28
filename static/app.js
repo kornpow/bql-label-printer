@@ -122,7 +122,7 @@ function buildForm() {
     // Optionally, create and append a label
     const label = document.createElement('label');
     label.htmlFor = red_check.id;
-    label.appendChild(document.createTextNode('Allow red?'));
+    label.appendChild(document.createTextNode('Using Red/Black Paper? Yes or No?'));
 
     // Append the checkbox and label to the parent element
     form.appendChild(red_check);
