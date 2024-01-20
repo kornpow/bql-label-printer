@@ -74,6 +74,7 @@ def get_labels():
     List the available label templates
     :return:
     """
+    # get labels from some the disk?
     filenames = glob(sys.path[0] + '/static/labels/*.html')
     filenames.sort()
     return [basename(x[:-5]) for x in filenames]
