@@ -57,17 +57,32 @@ def do_print():
     allow_red = request.form['allow_red'] == "true"
     print(f"allow red? {allow_red} {type(allow_red)}")
     im = Image.open(request.files['data'])
-    qlr = BrotherQLRaster(MODEL)
-    create_label(qlr, im, request.form['size'], threshold=70, cut=True, rotate=90, red=allow_red)
+    from datetime import datetime
+    timestamp = datetime.timestamp(datetime.now())
+    filename = f"{timestamp}.png"
+    im.save(filename)
 
-    # noinspection PyCallingNonCallable
-    be = BACKEND_CLASS(BACKEND_STRING_DESCR)
-    be.write(qlr.data)
-    be.dispose()
-    del be
+    # uncomment me to print to printer
+    # qlr = BrotherQLRaster(MODEL)
+    # create_label(qlr, im, request.form['size'], threshold=70, cut=True, rotate=90, red=allow_red)
+
+    # # noinspection PyCallingNonCallable
+    # be = BACKEND_CLASS(BACKEND_STRING_DESCR)
+    # be.write(qlr.data)
+    # be.dispose()
+    # del be
 
     return 'ok'
 
+@app.route('/labels', methods=['GET'])
+def show_labels():
+    """
+    List the available label templates
+    :return:
+    """
+    filenames = glob(sys.path[0] + '/static/labels/*.html')
+    filenames.sort()
+    return [basename(x[:-5]) for x in filenames]
 
 def get_labels():
     """
@@ -100,8 +115,8 @@ def main():
     MODEL = args.model
 
     try:
-        selected_backend = guess_backend(args.printer)
-        BACKEND_CLASS = backend_factory(selected_backend)['backend_class']
+        # selected_backend = guess_backend(args.printer)
+        # BACKEND_CLASS = backend_factory(selected_backend)['backend_class']
         BACKEND_STRING_DESCR = args.printer
     except:
         parser.error("Couldn't guess the backend to use from the printer string descriptor")
