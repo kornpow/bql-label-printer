@@ -8,7 +8,10 @@ const button = document.getElementById('btn');
  */
 if (labelSelect) {
     labelSelect.onchange = function loadTemplate() {
-        fetch(window.location.pathname + '/static/labels/' + labelSelect.value + '.html')
+        console.log(window.location);
+        console.log(window.location.pathname + '/static/labels/' + labelSelect.value + '.html')
+        fetch(window.location.origin + '/static/labels/' + labelSelect.value + '.html')
+        // fetch(window.location.pathname + '/static/labels/' + labelSelect.value + '.html')
             .then(function (response) {
                 if (response.ok) {
                     return response.text();
@@ -194,7 +197,7 @@ button.onclick = function () {
 
             console.log(fd);
             // TODO: do something here to pass down whether to print red or not
-            return fetch(window.location.pathname + '/print', {
+            return fetch(window.location.origin + '/print', {
                 method: 'POST',
                 body: fd
             });
