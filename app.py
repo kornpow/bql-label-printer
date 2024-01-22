@@ -63,14 +63,15 @@ def do_print():
     im.save(filename)
 
     # uncomment me to print to printer
-    # qlr = BrotherQLRaster(MODEL)
-    # create_label(qlr, im, request.form['size'], threshold=70, cut=True, rotate=90, red=allow_red)
+    # TODO: add a dev mode?
+    qlr = BrotherQLRaster(MODEL)
+    create_label(qlr, im, request.form['size'], threshold=70, cut=True, rotate=90, red=allow_red)
 
-    # # noinspection PyCallingNonCallable
-    # be = BACKEND_CLASS(BACKEND_STRING_DESCR)
-    # be.write(qlr.data)
-    # be.dispose()
-    # del be
+    # noinspection PyCallingNonCallable
+    be = BACKEND_CLASS(BACKEND_STRING_DESCR)
+    be.write(qlr.data)
+    be.dispose()
+    del be
 
     return 'ok'
 
