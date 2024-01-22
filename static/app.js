@@ -119,13 +119,13 @@ function buildForm() {
     red_check.type = 'checkbox';
 
     // Optionally, set other attributes
-    red_check.id = 'allow_red';
+    red_check.id = 'myCheckbox';
     red_check.value = 'false';
 
     // Optionally, create and append a label
     const label = document.createElement('label');
     label.htmlFor = red_check.id;
-    label.appendChild(documemyCheckboxnt.createTextNode('Using Red/Black Paper? Yes or No?'));
+    label.appendChild(document.createTextNode('Using Red/Black Paper? Yes or No?'));
 
     // Append the checkbox and label to the parent element
     form.appendChild(red_check);
@@ -192,7 +192,7 @@ button.onclick = function () {
             fd.append('size', getSize());
 
             // Capture the checkbox value
-            const checkboxValue = document.getElementById('allow_red').checked;
+            const checkboxValue = document.getElementById('myCheckbox').checked;
             fd.append('allow_red', checkboxValue);  // Add checkbox value to FormData
 
             console.log(fd);
