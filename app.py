@@ -117,8 +117,8 @@ def main():
     MODEL = args.model
 
     try:
-        # selected_backend = guess_backend(args.printer)
-        # BACKEND_CLASS = backend_factory(selected_backend)['backend_class']
+        selected_backend = guess_backend(args.printer)
+        BACKEND_CLASS = backend_factory(selected_backend)['backend_class']
         BACKEND_STRING_DESCR = args.printer
     except:
         parser.error("Couldn't guess the backend to use from the printer string descriptor")
