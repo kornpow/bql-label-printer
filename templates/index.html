@@ -4,12 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <link rel="stylesheet" href="static/sakura.css" type="text/css">
-<!-- <link rel="stylesheet" href="{{ request.app.state.static_url }}/app.css" type="text/css"/> -->
 <link rel="stylesheet" href="static/out.css" type="text/css"/>
 
 <body>
 
-<main>
+<main class="max-w-fit mx-auto">
     <section class="template">
         <form>
             <label for="sel-label">Label:
@@ -29,11 +28,27 @@
 
     <section class="preview">
         <div id="scalefix">
-            <div id="wrapper">
+            <div id="wrapper" class="whitespace-nowrap">
                 Loading template...
             </div>
         </div>
     </section>
+
+    <section class="history">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Label</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Content will be dynamically generated here -->
+            </tbody>
+        </table>
+    </section>
+
 
 </main>
 

@@ -7,6 +7,9 @@ Simple Web Interface to create labels on a Brother Printer
 import sys
 from glob import glob
 from os.path import basename
+from io import BytesIO
+import argparse
+from datetime import datetime
 
 from PIL import Image
 from brother_ql import BrotherQLRaster, create_label
@@ -16,6 +19,7 @@ from fastapi import FastAPI, Request, File, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+import uvicorn
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -39,16 +43,16 @@ async def do_editor(request: Request):
         {"request": request, "labels": get_labels()}
     )
 
-@app.get('/expiry')
-async def do_expiry(request: Request):
-    """
-    The expiry label view
-    :return:
-    """
-    return templates.TemplateResponse(
-        'expiry.html',
-        {"request": request}
-    )
+# @app.get('/expiry')
+# async def do_expiry(request: Request):
+#     """
+#     The expiry label view
+#     :return:
+#     """
+#     return templates.TemplateResponse(
+#         'expiry.html',
+#         {"request": request}
+#     )
 
 
 @app.post('/print')
@@ -60,24 +64,20 @@ async def do_print(data: bytes = File(...), size: str = Form(...), allow_red: st
     print(data)
     allow_red = allow_red == "true"
     print(f"allow red? {allow_red} {type(allow_red)}")
-    im = Image.open(data)
-    from datetime import datetime
+    im = Image.open(BytesIO(data))
+    
     timestamp = datetime.timestamp(datetime.now())
     filename = f"{timestamp}.png"
     im.save(filename)
 
     # uncomment me to print to printer
     # TODO: add a dev mode?
-    qlr = BrotherQLRaster(MODEL)
-    create_label(qlr, im, size, threshold=70, cut=True, rotate=90, red=allow_red)
 
-    # noinspection PyCallingNonCallable
-    be = BACKEND_CLASS(BACKEND_STRING_DESCR)
-    be.write(qlr.data)
-    be.dispose()
-    del be
+    await print_label(im, size, allow_red)
 
     return 'ok'
+
+
 
 @app.get('/labels')
 async def show_labels():
@@ -88,6 +88,18 @@ async def show_labels():
     filenames = glob(sys.path[0] + '/static/labels/*.html')
     filenames.sort()
     return [basename(x[:-5]) for x in filenames]
+
+
+async def print_label(im, size, allow_red):
+    qlr = BrotherQLRaster(MODEL)
+    create_label(qlr, im, size, threshold=70, cut=True, rotate=90, red=allow_red)
+
+    # noinspection PyCallingNonCallable
+    be = BACKEND_CLASS(BACKEND_STRING_DESCR)
+    be.write(qlr.data)
+    be.dispose()
+    del be
+
 
 def get_labels():
     """
@@ -106,7 +118,6 @@ def main():
     :return:
     """
     global DEBUG, MODEL, BACKEND_CLASS, BACKEND_STRING_DESCR
-    import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--host', default='127.0.0.1', help='The IP the webserver should bind to. Use 0.0.0.0 for all')
     parser.add_argument('--port', default=8013, help='The port the webserver should start on')
@@ -127,8 +138,8 @@ def main():
     except:
         parser.error("Couldn't guess the backend to use from the printer string descriptor")
 
-    import uvicorn
-    uvicorn.run(app, host=args.host, port=args.port, debug=DEBUG)
+
+    uvicorn.run(app, host=args.host, port=int(args.port))
 
 
 if __name__ == "__main__":

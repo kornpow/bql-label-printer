@@ -211,8 +211,23 @@ button.onclick = function () {
             console.error('oops, something went wrong!', error);
             alert(error)
         })
-        alert("label printed")
-    ;
+        // alert("label printed");
+        const historySection = document.querySelector('.history tbody');
+        const newRow = document.createElement('tr');
+        const dateCell = document.createElement('td');
+        const labelCell = document.createElement('td');
+        const statusCell = document.createElement('td');
+
+        dateCell.textContent = new Date().toLocaleString();
+        labelCell.textContent = getSize();
+        const textarea = document.querySelector('textarea');
+        statusCell.textContent = textarea.value.trim();
+
+        newRow.appendChild(dateCell);
+        newRow.appendChild(labelCell);
+        newRow.appendChild(statusCell);
+
+        historySection.insertBefore(newRow, historySection.firstChild);
 
     /* debugging:
     domtoimage.toPng(node)

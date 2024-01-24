@@ -11,7 +11,7 @@ html, body {
 
 main {
     margin: 1em auto;
-    max-width: 38em;
+    /* max-width: 38em; */
 }
 
 section {
@@ -37,9 +37,9 @@ section {
     transform-origin: top left;
 }
 
-#wrapper>* {
+/* #wrapper>* {
     overflow: hidden;
-}
+} */
 
 #wrapper * {
     color: #000;
@@ -50,8 +50,8 @@ section {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
 }
 
 #wrapper div.multi {
