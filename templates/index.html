@@ -3,9 +3,9 @@
     <title>Label Printer</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
-<link rel="stylesheet" href="{{ url_for('static', filename='sakura.css') }}" type="text/css">
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" type="text/css"/> -->
-<link rel="stylesheet" href="{{ url_for('static', filename='out.css') }}" type="text/css"/>
+<link rel="stylesheet" href="static/sakura.css" type="text/css">
+<!-- <link rel="stylesheet" href="{{ request.app.state.static_url }}/app.css" type="text/css"/> -->
+<link rel="stylesheet" href="static/out.css" type="text/css"/>
 
 <body>
 
@@ -37,8 +37,8 @@
 
 </main>
 
-<script src="{{ url_for('static', filename='dom-to-image-more.min.js') }}"></script>
-<script src="{{ url_for('static', filename='qrcode.min.js') }}"></script>
-<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="static/dom-to-image-more.min.js"></script>
+<script src="static/qrcode.min.js"></script>
+<script src="static//app.js"></script>
 </body>
 </html>

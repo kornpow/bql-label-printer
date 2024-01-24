@@ -12,11 +12,14 @@ from PIL import Image
 from brother_ql import BrotherQLRaster, create_label
 from brother_ql.backends import backend_factory, guess_backend
 from brother_ql.devicedependent import models, label_type_specs, label_sizes
-from flask import Flask
-from flask import render_template
-from flask import request
+from fastapi import FastAPI, Request, File, Form
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
-app = Flask(__name__)
+app = FastAPI()
+templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 DEBUG = False
 MODEL = None
@@ -25,38 +28,39 @@ BACKEND_STRING_DESCR = None
 LABEL_SIZES = [(name, label_type_specs[name]['name']) for name in label_sizes]
 
 
-@app.route('/')
-def do_editor():
+@app.get('/')
+async def do_editor(request: Request):
     """
     The main editor view
     :return:
     """
-    return render_template(
+    return templates.TemplateResponse(
         'index.html',
-        labels=get_labels()
+        {"request": request, "labels": get_labels()}
     )
 
-@app.route('/expiry')
-def do_expiry():
+@app.get('/expiry')
+async def do_expiry(request: Request):
     """
     The expiry label view
     :return:
     """
-    return render_template(
-        'expiry.html'
+    return templates.TemplateResponse(
+        'expiry.html',
+        {"request": request}
     )
 
 
-@app.route('/print', methods=['POST'])
-def do_print():
+@app.post('/print')
+async def do_print(data: bytes = File(...), size: str = Form(...), allow_red: str = Form(...)):
     """
     Receive the image from the frontend and print it
     :return: string a simple 'ok' when no exception was thrown
     """
-    print(request.files['data'])
-    allow_red = request.form['allow_red'] == "true"
+    print(data)
+    allow_red = allow_red == "true"
     print(f"allow red? {allow_red} {type(allow_red)}")
-    im = Image.open(request.files['data'])
+    im = Image.open(data)
     from datetime import datetime
     timestamp = datetime.timestamp(datetime.now())
     filename = f"{timestamp}.png"
@@ -65,7 +69,7 @@ def do_print():
     # uncomment me to print to printer
     # TODO: add a dev mode?
     qlr = BrotherQLRaster(MODEL)
-    create_label(qlr, im, request.form['size'], threshold=70, cut=True, rotate=90, red=allow_red)
+    create_label(qlr, im, size, threshold=70, cut=True, rotate=90, red=allow_red)
 
     # noinspection PyCallingNonCallable
     be = BACKEND_CLASS(BACKEND_STRING_DESCR)
@@ -75,8 +79,8 @@ def do_print():
 
     return 'ok'
 
-@app.route('/labels', methods=['GET'])
-def show_labels():
+@app.get('/labels')
+async def show_labels():
     """
     List the available label templates
     :return:
@@ -123,7 +127,8 @@ def main():
     except:
         parser.error("Couldn't guess the backend to use from the printer string descriptor")
 
-    app.run(host=args.host, port=args.port, debug=DEBUG)
+    import uvicorn
+    uvicorn.run(app, host=args.host, port=args.port, debug=DEBUG)
 
 
 if __name__ == "__main__":
