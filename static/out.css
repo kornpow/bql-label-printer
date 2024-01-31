@@ -587,6 +587,18 @@ video {
   top: 0px;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
+.m-7 {
+  margin: 1.75rem;
+}
+
+.m-auto {
+  margin: auto;
+}
+
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -641,6 +653,10 @@ video {
   height: 106px;
 }
 
+.h-306 {
+  height: 306px;
+}
+
 .h-4 {
   height: 1rem;
 }
@@ -659,6 +675,18 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.w-106 {
+  width: 106px;
+}
+
+.w-306 {
+  width: 306px;
+}
+
+.w-991 {
+  width: 991px;
 }
 
 .max-w-fit {
@@ -690,12 +718,40 @@ video {
   flex-direction: column;
 }
 
+.place-content-start {
+  place-content: start;
+}
+
+.place-content-end {
+  place-content: end;
+}
+
 .items-center {
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
+}
+
+.space-x-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2rem * var(--tw-space-x-reverse));
+  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {

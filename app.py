@@ -121,7 +121,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--host', default='127.0.0.1', help='The IP the webserver should bind to. Use 0.0.0.0 for all')
     parser.add_argument('--port', default=8013, help='The port the webserver should start on')
-    parser.add_argument('--debug', action='store_true', default=False, help='Activate flask debugging support')
+    parser.add_argument('--debug', action='store_true', default=False, help='Activate local dev debugging')
     parser.add_argument('--model', default='QL-500', choices=models, help='The model of your printer (default: QL-500)')
     parser.add_argument('printer',
                         help='String descriptor for the printer to use (like tcp://192.168.0.23:9100 or '
