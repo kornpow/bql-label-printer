@@ -653,6 +653,14 @@ video {
   height: 106px;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
+.h-300 {
+  height: 300px;
+}
+
 .h-306 {
   height: 306px;
 }
@@ -673,12 +681,32 @@ video {
   height: 2rem;
 }
 
+.h-\[200px\] {
+  height: 200px;
+}
+
+.h-\[250px\] {
+  height: 250px;
+}
+
+.h-\[300px\] {
+  height: 300px;
+}
+
 .h-full {
   height: 100%;
 }
 
 .w-106 {
   width: 106px;
+}
+
+.w-20 {
+  width: 5rem;
+}
+
+.w-300 {
+  width: 300px;
 }
 
 .w-306 {
@@ -689,6 +717,34 @@ video {
   width: 991px;
 }
 
+.w-\[200px\] {
+  width: 200px;
+}
+
+.w-\[250px\] {
+  width: 250px;
+}
+
+.w-\[300px\] {
+  width: 300px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-48 {
+  max-width: 12rem;
+}
+
+.max-w-\[400px\] {
+  max-width: 400px;
+}
+
+.max-w-\[991px\] {
+  max-width: 991px;
+}
+
 .max-w-fit {
   max-width: -moz-fit-content;
   max-width: fit-content;
@@ -696,6 +752,10 @@ video {
 
 .max-w-screen-lg {
   max-width: 1024px;
+}
+
+.flex-none {
+  flex: none;
 }
 
 .border-collapse {
@@ -718,12 +778,20 @@ video {
   flex-direction: column;
 }
 
+.place-content-center {
+  place-content: center;
+}
+
 .place-content-start {
   place-content: start;
 }
 
 .place-content-end {
   place-content: end;
+}
+
+.content-center {
+  align-content: center;
 }
 
 .items-center {
@@ -740,6 +808,10 @@ video {
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .space-x-5 > :not([hidden]) ~ :not([hidden]) {
@@ -764,6 +836,10 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.whitespace-normal {
+  white-space: normal;
 }
 
 .whitespace-nowrap {
@@ -1600,8 +1676,22 @@ video {
   background-color: rgb(252 165 165 / 0.95);
 }
 
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .p-2 {
   padding: 0.5rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .text-2xl {
@@ -1644,6 +1734,21 @@ video {
   line-height: 1;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .font-black {
   font-weight: 900;
 }
@@ -1683,65 +1788,62 @@ section {
   overflow: auto;
 }
 
-#expiry {
-  display: grid;
-  grid-template-columns: repeat(6, auto);
-  -moz-column-gap: 0.5em;
-       column-gap: 0.5em;
-  row-gap: 0.5em;
-}
+/* #expiry {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+} */
 
-#wrapper {
-  background-color: #fff;
-  color: #000;
-  display: inline-block;
-  border: 1px solid #333;
-  font-family: Arial, sans-serif;
-  line-height: normal;
-  transform-origin: top left;
-}
+/* #wrapper {
+    background-color: #fff;
+    color: #000;
+    display: inline-block;
+    border: 1px solid #333;
+    font-family: Arial, sans-serif;
+    line-height: normal;
+    transform-origin: top left;
+} */
 
 /* #wrapper>* {
     overflow: hidden;
 } */
 
-#wrapper * {
-  color: #000;
-}
+/* #wrapper * {
+    color: #000;
+} */
 
-#wrapper div.single {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  /* overflow: hidden; */
-  /* white-space: nowrap; */
-}
+/* #wrapper div.single {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+} */
 
-#wrapper div.multi {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
+/* #wrapper div.multi {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+} */
 
-#wrapper div.top {
-  justify-content: flex-start;
+/* #wrapper div.top {
+    justify-content: flex-start;
 }
 
 #wrapper div.left {
-  text-align: left;
-  padding-left: 10px;
-  padding-right: 10px;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #wrapper div.right {
-  text-align: right;
-  padding-left: 10px;
-  padding-right: 10px;
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #wrapper .redink {
-  color: red;
-}
+    color: red;
+} */

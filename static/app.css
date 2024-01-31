@@ -20,14 +20,14 @@ section {
     overflow: auto;
 }
 
-#expiry {
+/* #expiry {
     display: grid;
     grid-template-columns: repeat(6, auto);
     column-gap: 0.5em;
     row-gap: 0.5em;
-}
+} */
 
-#wrapper {
+/* #wrapper {
     background-color: #fff;
     color: #000;
     display: inline-block;
@@ -35,34 +35,32 @@ section {
     font-family: Arial, sans-serif;
     line-height: normal;
     transform-origin: top left;
-}
+} */
 
 /* #wrapper>* {
     overflow: hidden;
 } */
 
-#wrapper * {
+/* #wrapper * {
     color: #000;
-}
+} */
 
-#wrapper div.single {
+/* #wrapper div.single {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    /* overflow: hidden; */
-    /* white-space: nowrap; */
-}
+} */
 
-#wrapper div.multi {
+/* #wrapper div.multi {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     overflow: hidden;
-}
+} */
 
-#wrapper div.top {
+/* #wrapper div.top {
     justify-content: flex-start;
 }
 
@@ -80,4 +78,4 @@ section {
 
 #wrapper .redink {
     color: red;
-}
+} */

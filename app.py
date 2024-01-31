@@ -43,17 +43,6 @@ async def do_editor(request: Request):
         {"request": request, "labels": get_labels()}
     )
 
-# @app.get('/expiry')
-# async def do_expiry(request: Request):
-#     """
-#     The expiry label view
-#     :return:
-#     """
-#     return templates.TemplateResponse(
-#         'expiry.html',
-#         {"request": request}
-#     )
-
 
 @app.post('/print')
 async def do_print(data: bytes = File(...), size: str = Form(...), allow_red: str = Form(...)):

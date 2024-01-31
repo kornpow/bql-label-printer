@@ -184,6 +184,7 @@ function getSize() {
 button.onclick = function () {
     //const node = document.getElementById('label');
     const node = wrapper.querySelector(':first-child');
+    console.log("saving dom to image!");
     console.log(node);
     domtoimage.toBlob(node)
         .then(function (blob) {
