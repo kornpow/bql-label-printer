@@ -43,6 +43,14 @@ Divs with the `qrcode` class will be converted to a QR Code. They also need the 
 
 ### Dates
 
+## TailwindCSS
+This project uses TailWindCSS as a sane way to build and style the HTML object without having to deal with annoying CSS issues.
+
+After updating a template and using a tailwindCSS helper class, you need to rebuild the CSS file:
+```bash
+npm run build-css
+```
+
 ## Feedback
 
 Please feel free to submit feedback in the form of pull requests.

@@ -58,9 +58,16 @@ async def do_print(data: bytes = File(...), size: str = Form(...), allow_red: st
     timestamp = datetime.timestamp(datetime.now())
     filename = f"{timestamp}.png"
     im.save(filename)
+    print(f"Image size: {size}")
+    print(LABEL_SIZES)
 
     # uncomment me to print to printer
     # TODO: add a dev mode?
+    # Autoscale image size with PIL
+    if size == "62x29":
+        im = im.rotate(90, expand=True)
+        # new_size = label_type_specs[size]["dots_total"]
+        # im.resize(new_size, Image.ANTIALIAS)
 
     await print_label(im, size, allow_red)
 
@@ -79,9 +86,10 @@ async def show_labels():
     return [basename(x[:-5]) for x in filenames]
 
 
-async def print_label(im, size, allow_red):
+async def print_label(im, size, allow_red, rotate=True):
     qlr = BrotherQLRaster(MODEL)
-    create_label(qlr, im, size, threshold=70, cut=True, rotate=90, red=allow_red)
+    rotate = 90 if rotate else 0
+    create_label(qlr, im, size, threshold=70, cut=True, rotate=rotate, red=allow_red)
 
     # noinspection PyCallingNonCallable
     be = BACKEND_CLASS(BACKEND_STRING_DESCR)
