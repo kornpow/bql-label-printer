@@ -36,7 +36,9 @@ ENV PYTHONUNBUFFERED 1
 # Create a non-root user
 RUN useradd --create-home appuser && \
     groupadd -f lp && \
-    usermod -aG lp appuser
+    groupadd -f  -g 121 lpadmin && \
+    usermod -aG lp appuser && \
+    usermod -aG lpadmin appuser
 
 USER appuser
 

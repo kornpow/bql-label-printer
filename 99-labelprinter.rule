@@ -1,0 +1,1 @@
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="04f9", ATTRS{idProduct}=="209b", ATTRS{serial}=="000L8Z690042", MODE="0664", GROUP="lp", SYMLINK+="usb/lp0"
