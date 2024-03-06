@@ -114,25 +114,41 @@ function buildForm() {
             };
         }
         form.appendChild(inp);
+
     }
-    // Create a new checkbox input element
-    const red_check = document.createElement('input');
 
-    // Set the type to 'checkbox'
-    red_check.type = 'checkbox';
+    // #### We dont need red/black checkbox now since it is embedded in the template
+    // // Create a new checkbox input element
+    // const red_check = document.createElement('input');
+    // red_check.type = 'checkbox';
+    // red_check.id = 'myCheckbox';
+    // red_check.value = 'false';
 
-    // Optionally, set other attributes
-    red_check.id = 'myCheckbox';
-    red_check.value = 'false';
+    // // Optionally, create and append a label
+    // const red_check_label = document.createElement('label');
+    // red_check_label.htmlFor = red_check.id;
+    // red_check_label.appendChild(document.createTextNode('Using Red/Black Paper? Yes or No?'));
 
-    // Optionally, create and append a label
-    const label = document.createElement('label');
-    label.htmlFor = red_check.id;
-    label.appendChild(document.createTextNode('Using Red/Black Paper? Yes or No?'));
+    // // Append the checkbox and label to the parent element
+    // form.appendChild(red_check);
+    // form.appendChild(red_check_label);
 
-    // Append the checkbox and label to the parent element
-    form.appendChild(red_check);
-    form.appendChild(label);
+    // Create a new number input element for count
+    const countInput = document.createElement('input');
+    countInput.type = 'number';
+    countInput.id = 'countInput';
+    countInput.name = 'count';
+    countInput.value = '1'; // Default value
+    countInput.min = '1'; // Minimum value to allow only positive numbers
+
+    // Optionally, create and append a label for the count input
+    const countLabel = document.createElement('label');
+    countLabel.htmlFor = countInput.id;
+    countLabel.appendChild(document.createTextNode('Count: '));
+
+    // Append the count input and label to the form
+    form.appendChild(countLabel);
+    form.appendChild(countInput);
 
 }
 
@@ -202,9 +218,11 @@ button.onclick = function () {
             // TODO: handle the rotation with a checkbox or something
             should_rotate = document.getElementById("rotate").value === "true";
             tape_config = document.getElementById("tape_config").value;
+            countValue = document.getElementById('countInput').value;
 
             fd.append('tape_config', tape_config);  // Add checkbox value to FormData
             fd.append('rotate', should_rotate);
+            fd.append('count', countValue);
             
             console.log("DO THIS!");
             console.log(fd);
