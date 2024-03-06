@@ -3,6 +3,9 @@ const wrapper = document.getElementById('wrapper');
 const form = document.getElementById('form');
 const button = document.getElementById('btn');
 
+const printBackendUrl = "https://a04b8f232606fb50dcf8466f6dc3a12b.balena-devices.com";
+
+
 /**
  * Load a template
  */
@@ -189,16 +192,24 @@ button.onclick = function () {
     domtoimage.toBlob(node)
         .then(function (blob) {
             const fd = new FormData();
-            fd.append('data', blob);
-            fd.append('size', getSize());
+            fd.append('file', blob);
+            // fd.append('size', getSize());
 
             // Capture the checkbox value
-            const checkboxValue = document.getElementById('myCheckbox').checked;
-            fd.append('allow_red', checkboxValue);  // Add checkbox value to FormData
+            // const checkboxValue = document.getElementById('myCheckbox').checked;
+            // fd.append('allow_red', checkboxValue);  // Add checkbox value to FormData
+            
+            // TODO: handle the rotation with a checkbox or something
+            should_rotate = document.getElementById("rotate").value === "true";
+            tape_config = document.getElementById("tape_config").value;
 
+            fd.append('tape_config', tape_config);  // Add checkbox value to FormData
+            fd.append('rotate', should_rotate);
+            
+            console.log("DO THIS!");
             console.log(fd);
             // TODO: do something here to pass down whether to print red or not
-            return fetch(window.location.origin + '/print', {
+            return fetch(printBackendUrl + '/print-label', {
                 method: 'POST',
                 body: fd
             });

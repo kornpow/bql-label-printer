@@ -43,6 +43,15 @@ async def do_editor(request: Request):
         {"request": request, "labels": get_labels()}
     )
 
+@app.get('/labels')
+async def show_labels():
+    """
+    List the available label templates
+    :return:
+    """
+    filenames = glob(sys.path[0] + '/static/labels/*.html')
+    filenames.sort()
+    return [basename(x[:-5]) for x in filenames]
 
 @app.post('/print')
 async def do_print(data: bytes = File(...), size: str = Form(...), allow_red: str = Form(...)):
@@ -75,15 +84,7 @@ async def do_print(data: bytes = File(...), size: str = Form(...), allow_red: st
 
 
 
-@app.get('/labels')
-async def show_labels():
-    """
-    List the available label templates
-    :return:
-    """
-    filenames = glob(sys.path[0] + '/static/labels/*.html')
-    filenames.sort()
-    return [basename(x[:-5]) for x in filenames]
+
 
 
 async def print_label(im, size, allow_red, rotate=True):
