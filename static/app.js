@@ -226,7 +226,6 @@ button.onclick = function () {
             
             console.log("DO THIS!");
             console.log(fd);
-            // TODO: do something here to pass down whether to print red or not
             return fetch(printBackendUrl + '/print-label', {
                 method: 'POST',
                 body: fd
@@ -259,16 +258,24 @@ button.onclick = function () {
 
         historySection.insertBefore(newRow, historySection.firstChild);
 
-    /* debugging:
+    // /* debugging:
     domtoimage.toPng(node)
         .then(function (dataUrl) {
             var img = new Image();
             img.src = dataUrl;
-            document.body.appendChild(img);
+            // document.body.appendChild(img);
+            var targetElement = document.getElementById('imageDisplayArea');
+            if (targetElement.children.length > 0) {
+                // If targetElement has one or more children, replace the first child
+                targetElement.replaceChild(img, targetElement.children[0]);
+            } else {
+                // If targetElement has no children, append the new img element
+                targetElement.appendChild(img);
+            }
         })
         .catch(function (error) {
             console.error('oops, something went wrong!', error);
         });
-    */
+    // */
 };
 
