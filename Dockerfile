@@ -1,5 +1,5 @@
 # Use an official Python runtime as the parent image
-FROM python:3.11-slim as builder
+FROM python:3.12-slim as builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -27,7 +27,7 @@ RUN poetry config virtualenvs.create false \
 # ------------------------------
 # Production image starts here
 # ------------------------------
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -46,7 +46,7 @@ USER appuser
 WORKDIR /home/appuser
 
 # Copy installed dependencies from the builder
-COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
+COPY --from=builder /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
 # Copy the content of the local src directory to the working directory
