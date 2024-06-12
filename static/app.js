@@ -207,9 +207,36 @@ button.onclick = function () {
     console.log(node);
     domtoimage.toBlob(node)
         .then(function (blob) {
+
+
+            
             const fd = new FormData();
             fd.append('file', blob);
-            // fd.append('size', getSize());
+
+            // const reader = new FileReader();
+            // reader.onload = function(event) {
+            //     const base64Data = event.target.result;
+            //     localStorage.setItem('savedImage', base64Data);
+            //     console.log('Image saved to local storage');
+
+            //     const dataUrl = event.target.result;
+
+            //     // Create an anchor element
+            //     const link = document.createElement('a');
+            //     link.href = dataUrl;
+            //     link.download = 'label.png';
+
+            //     // Append the link to the body (required for Firefox)
+            //     document.body.appendChild(link);
+
+            //     // Programmatically click the link to trigger the download
+            //     link.click();
+
+            //     // Remove the link from the document
+            //     document.body.removeChild(link);
+            // };
+            // reader.readAsDataURL(blob);
+            // console.log(blob.data);
 
             // Capture the checkbox value
             // const checkboxValue = document.getElementById('myCheckbox').checked;

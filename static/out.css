@@ -677,6 +677,10 @@ video {
   height: 1.5rem;
 }
 
+.h-696 {
+  height: 696px;
+}
+
 .h-8 {
   height: 2rem;
 }
@@ -1797,6 +1801,10 @@ video {
 
 .text-\[140px\] {
   font-size: 140px;
+}
+
+.text-\[180px\] {
+  font-size: 180px;
 }
 
 .text-\[190px\] {
