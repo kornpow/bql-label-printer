@@ -3,7 +3,9 @@ const wrapper = document.getElementById('wrapper');
 const form = document.getElementById('form');
 const button = document.getElementById('btn');
 
-const printBackendUrl = "https://a04b8f232606fb50dcf8466f6dc3a12b.balena-devices.com";
+const backendSelect = document.getElementById('sel-backend');
+const printBackendUrl = backendSelect.options[backendSelect.selectedIndex].value;
+
 
 
 /**
@@ -253,10 +255,17 @@ button.onclick = function () {
             
             console.log("DO THIS!");
             console.log(fd);
-            return fetch(printBackendUrl + '/print-label', {
+            const print_url_endpoint = printBackendUrl + '/print-label'
+            console.log("Sending a print request to url: " + print_url_endpoint);
+            const timeout = 3000; // 3 seconds
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+            return fetch(print_url_endpoint, {
                 method: 'POST',
-                body: fd
-            });
+                body: fd,
+                signal: controller.signal
+            }).finally(() => clearTimeout(timeoutId));
         })
         .then(function (response) {
             if (!response.ok) {
