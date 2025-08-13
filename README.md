@@ -4,19 +4,20 @@ This is a very simple web interface to create text labels on a Brother QL series
 
 ## Installation
 
-Create a virtual environment and install the requirements
+This project uses [uv](https://docs.astral.sh/uv/) for dependency management. To install and run:
 
-    $> virtualenv3 env
-    $> . env/bin/activate
-    $env> pip install -r requirements.txt
+    $> uv sync
+    $> uv run python app.py --model QL-500 tcp://192.168.1.1:9100
+
+Alternatively, you can activate the virtual environment:
+
+    $> uv sync
+    $> source .venv/bin/activate
+    $env> python app.py --model QL-500 tcp://192.168.1.1:9100
 
 ## Running
 
-Start the server by providing the model and connection string
-
-    $env> ./app.py --model QL-500 tcp://192.168.1.1:9100
-
-Run `app.py -h` for more info.
+Run `python app.py -h` for more options.
 
 ## Using
 

@@ -1,25 +1,31 @@
-[tool.poetry]
+[project]
 name = "bql-label-printer"
 version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
-license = "n"
+description = "Web UI for label design - printing handled by separate services"
+authors = [
+    {name = "Your Name", email = "you@example.com"}
+]
+license = {text = "n"}
 readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "Jinja2>=3.1.2",
+    "MarkupSafe>=2.1.3",
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-Jinja2 = "^3.1.2"
-MarkupSafe = "^2.1.3"
-fastapi = "^0.109.0"
-uvicorn = "^0.27.0"
-python-multipart = "^0.0.6"
-brother-ql-inventree = "^1.1"
+[project.optional-dependencies]
+dev = [
+    "black>=23.9.1",
+    "pytest>=7.4.2",
+    "flake8>=6.1.0",
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^23.9.1"
-pytest = "^7.4.2"
-flake8 = "^6.1.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+dev-dependencies = [
+    "black>=23.9.1",
+    "pytest>=7.4.2",
+    "flake8>=6.1.0",
+]
+package = false
