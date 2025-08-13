@@ -3,6 +3,7 @@ html, body {
     padding: 0;
     width: 100%;
     max-width: none;
+    background-color: #f8fafc;
 }
 
 @tailwind base;
@@ -24,6 +25,80 @@ section {
 #wrapper, #wrapper * {
     border: none !important;
     outline: none !important;
+}
+
+/* Prevent text wrapping in labels - let them maintain natural dimensions */
+#wrapper {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* Allow individual label elements to control their own wrapping */
+#wrapper > div {
+    white-space: normal;
+}
+
+/* For labels that should maintain their width, don't force wrapping */
+#wrapper .input {
+    white-space: nowrap;
+    overflow: visible;
+}
+
+/* Improve form styling */
+#form textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    resize: vertical;
+    min-height: 40px;
+    font-family: inherit;
+}
+
+#form input[type="date"], #form input[type="number"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-family: inherit;
+}
+
+#form label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+/* Style the image display area */
+#imageDisplayArea img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive label preview */
+#scalefix {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Override sakura table styling */
+table {
+    margin-bottom: 0 !important;
+}
+
+table th, table td {
+    border-bottom: 1px solid #f3f4f6 !important;
+    padding: 8px 4px !important;
+}
+
+/* History table specific styling */
+.history tbody tr:hover {
+    background-color: #f9fafb;
 }
 
 /* #expiry {

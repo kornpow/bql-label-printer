@@ -279,45 +279,100 @@ button.onclick = function () {
             console.error('oops, something went wrong!', error);
             alert(error)
         })
-        // alert("label printed");
-        const historySection = document.querySelector('.history tbody');
-        const newRow = document.createElement('tr');
-        const dateCell = document.createElement('td');
-        const labelCell = document.createElement('td');
-        const statusCell = document.createElement('td');
-
-        dateCell.textContent = new Date().toLocaleString();
-        labelCell.textContent = getSize();
-        const textarea = document.querySelector('textarea');
-        statusCell.textContent = textarea.value.trim();
-
-        newRow.appendChild(dateCell);
-        newRow.appendChild(labelCell);
-        newRow.appendChild(statusCell);
-
-        historySection.insertBefore(newRow, historySection.firstChild);
-
-    // /* debugging:
-    domtoimage.toPng(node, {
-            bgcolor: '#ffffff'
-        })
-        .then(function (dataUrl) {
-            var img = new Image();
-            img.src = dataUrl;
-            // document.body.appendChild(img);
-            var targetElement = document.getElementById('imageDisplayArea');
-            if (targetElement.children.length > 0) {
-                // If targetElement has one or more children, replace the first child
-                targetElement.replaceChild(img, targetElement.children[0]);
-            } else {
-                // If targetElement has no children, append the new img element
-                targetElement.appendChild(img);
-            }
-        })
-        .catch(function (error) {
-            console.error('oops, something went wrong!', error);
-        });
-    // */
+        
+        // Generate preview image for history
+        domtoimage.toPng(node, {
+                bgcolor: '#ffffff'
+            })
+            .then(function (dataUrl) {
+                // Add to history with image preview
+                const historySection = document.querySelector('.history tbody');
+                const newRow = document.createElement('tr');
+                
+                // Preview cell with thumbnail
+                const previewCell = document.createElement('td');
+                const img = document.createElement('img');
+                img.src = dataUrl;
+                img.style.maxWidth = '80px';
+                img.style.maxHeight = '40px';
+                img.style.objectFit = 'contain';
+                img.style.border = '1px solid #e5e7eb';
+                img.style.borderRadius = '4px';
+                img.style.cursor = 'pointer';
+                img.title = 'Click to view full size';
+                
+                // Click to view full size
+                img.onclick = function() {
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                        background: rgba(0,0,0,0.8); display: flex; align-items: center;
+                        justify-content: center; z-index: 1000; cursor: pointer;
+                    `;
+                    
+                    const fullImg = document.createElement('img');
+                    fullImg.src = dataUrl;
+                    fullImg.style.cssText = 'max-width: 90%; max-height: 90%; border-radius: 8px;';
+                    
+                    modal.appendChild(fullImg);
+                    modal.onclick = () => document.body.removeChild(modal);
+                    document.body.appendChild(modal);
+                };
+                
+                previewCell.appendChild(img);
+                
+                // Date cell
+                const dateCell = document.createElement('td');
+                dateCell.textContent = new Date().toLocaleString();
+                
+                // Label type cell
+                const labelCell = document.createElement('td');
+                labelCell.textContent = getSize();
+                
+                // Content cell
+                const contentCell = document.createElement('td');
+                const textarea = document.querySelector('textarea');
+                contentCell.textContent = textarea ? textarea.value.trim() : '';
+                contentCell.style.maxWidth = '200px';
+                contentCell.style.overflow = 'hidden';
+                contentCell.style.textOverflow = 'ellipsis';
+                contentCell.style.whiteSpace = 'nowrap';
+                contentCell.title = contentCell.textContent; // Show full text on hover
+                
+                newRow.appendChild(previewCell);
+                newRow.appendChild(dateCell);
+                newRow.appendChild(labelCell);
+                newRow.appendChild(contentCell);
+                
+                historySection.insertBefore(newRow, historySection.firstChild);
+            })
+            .catch(function (error) {
+                console.error('Failed to generate preview:', error);
+                // Still add history entry without image
+                const historySection = document.querySelector('.history tbody');
+                const newRow = document.createElement('tr');
+                
+                const previewCell = document.createElement('td');
+                previewCell.textContent = 'No preview';
+                previewCell.style.color = '#9ca3af';
+                
+                const dateCell = document.createElement('td');
+                dateCell.textContent = new Date().toLocaleString();
+                
+                const labelCell = document.createElement('td');
+                labelCell.textContent = getSize();
+                
+                const contentCell = document.createElement('td');
+                const textarea = document.querySelector('textarea');
+                contentCell.textContent = textarea ? textarea.value.trim() : '';
+                
+                newRow.appendChild(previewCell);
+                newRow.appendChild(dateCell);
+                newRow.appendChild(labelCell);
+                newRow.appendChild(contentCell);
+                
+                historySection.insertBefore(newRow, historySection.firstChild);
+            });
 };
 
 /**

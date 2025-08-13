@@ -8,58 +8,85 @@
 
 <body>
 
-<main class="max-w-fit mx-auto">
-    <section class="template">
-        <form>
-            <label for="sel-label">Label:
-                <select id="sel-label" name="labels">
-                    {% for label in labels %}
-                        <option>{{ label }}</option>
-                    {% endfor %}
-                </select>
-            </label>
+<main class="container mx-auto px-4 py-6 max-w-6xl">
+    <header class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Label Printer</h1>
+        <p class="text-gray-600">Create and print custom labels</p>
+    </header>
 
-            <!-- Add a new dropdown menu for printer backend URL -->
-            <label for="sel-backend">Printer Backend:
-                <select id="sel-backend" name="backend">
-                    <option value="https://printer1.lightningspore.com">SporeLabNew</option>
-                    <option value="https://a04b8f232606fb50dcf8466f6dc3a12b.balena-devices.com">SporeLab</option>
-                    <option value="https://2abebd941aa3cef45a599929e0539bd4.balena-devices.com">FoxFarm</option>
-                </select>
-            </label>
-        </form>
-    </section>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left Column: Configuration -->
+        <div class="space-y-6">
+            <section class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Configuration</h2>
+                <form class="space-y-4">
+                    <div>
+                        <label for="sel-label" class="block text-sm font-medium text-gray-700 mb-1">Label Template:</label>
+                        <select id="sel-label" name="labels" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            {% for label in labels %}
+                                <option>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-    <section class="form">
-        <form id="form"></form>
-        <button id="btn">Print</button>
-        <button id="btn-download">Download Image</button>
-    </section>
+                    <div>
+                        <label for="sel-backend" class="block text-sm font-medium text-gray-700 mb-1">Printer Backend:</label>
+                        <select id="sel-backend" name="backend" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="https://printer1.lightningspore.com">SporeLabNew</option>
+                            <option value="https://a04b8f232606fb50dcf8466f6dc3a12b.balena-devices.com">SporeLab</option>
+                            <option value="https://2abebd941aa3cef45a599929e0539bd4.balena-devices.com">FoxFarm</option>
+                        </select>
+                    </div>
+                </form>
+            </section>
 
-    <section class="preview">
-        <div id="scalefix">
-            <div id="wrapper" class="">
-                Loading template...
-            </div>
+            <section class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Label Content</h2>
+                <form id="form" class="space-y-4"></form>
+                <div class="flex space-x-3 mt-6">
+                    <button id="btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
+                        Print
+                    </button>
+                    <button id="btn-download" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200">
+                        Download Image
+                    </button>
+                </div>
+            </section>
         </div>
-    </section>
 
-    <section class="history">
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Label</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Content will be dynamically generated here -->
-            </tbody>
-        </table>
-    </section>
+        <!-- Right Column: Preview -->
+        <div class="space-y-6">
+            <section class="bg-white rounded-lg shadow-sm border p-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Preview</h2>
+                <div class="overflow-auto border border-gray-200 rounded-lg p-4 bg-gray-50">
+                    <div id="scalefix">
+                        <div id="wrapper" class="">
+                            Loading template...
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-<div id="imageDisplayArea"></div>
+            <section class="bg-white rounded-lg shadow-sm border p-6 history">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Print History</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="text-left py-2 text-gray-700">Preview</th>
+                                <th class="text-left py-2 text-gray-700">Date</th>
+                                <th class="text-left py-2 text-gray-700">Label</th>
+                                <th class="text-left py-2 text-gray-700">Content</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <!-- Content will be dynamically generated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
 </main>
 
 <script src="static/dom-to-image-more.min.js"></script>
