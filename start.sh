@@ -1,3 +1,4 @@
 #!/bin/bash
 
-uv run python3 app.py --host=0.0.0.0 --port=8080
+PORT=${1:-8080}
+uv run python3 app.py --host=0.0.0.0 --port=$PORT

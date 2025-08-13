@@ -2,6 +2,7 @@ const labelSelect = document.getElementById('sel-label');
 const wrapper = document.getElementById('wrapper');
 const form = document.getElementById('form');
 const button = document.getElementById('btn');
+const downloadButton = document.getElementById('btn-download');
 
 const backendSelect = document.getElementById('sel-backend');
 const printBackendUrl = backendSelect.options[backendSelect.selectedIndex].value;
@@ -207,7 +208,9 @@ button.onclick = function () {
     const node = wrapper.querySelector(':first-child');
     console.log("saving dom to image!");
     console.log(node);
-    domtoimage.toBlob(node)
+    domtoimage.toBlob(node, {
+            bgcolor: '#ffffff'
+        })
         .then(function (blob) {
 
 
@@ -295,7 +298,9 @@ button.onclick = function () {
         historySection.insertBefore(newRow, historySection.firstChild);
 
     // /* debugging:
-    domtoimage.toPng(node)
+    domtoimage.toPng(node, {
+            bgcolor: '#ffffff'
+        })
         .then(function (dataUrl) {
             var img = new Image();
             img.src = dataUrl;
@@ -314,4 +319,41 @@ button.onclick = function () {
         });
     // */
 };
+
+/**
+ * Download the label as an image
+ */
+if (downloadButton) {
+    downloadButton.onclick = function () {
+        const node = wrapper.querySelector(':first-child');
+        console.log("downloading label as image!");
+        
+        domtoimage.toPng(node, {
+                bgcolor: '#ffffff'
+            })
+            .then(function (dataUrl) {
+                // Create filename with current date and label type
+                const now = new Date();
+                const timestamp = now.toISOString().slice(0, 19).replace(/:/g, '-');
+                const labelType = getSize();
+                const filename = `label-${labelType}-${timestamp}.png`;
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = filename;
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                console.log(`Label downloaded as ${filename}`);
+            })
+            .catch(function (error) {
+                console.error('Download failed:', error);
+                alert('Failed to download label image');
+            });
+    };
+}
 

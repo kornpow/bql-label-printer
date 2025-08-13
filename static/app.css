@@ -20,6 +20,12 @@ section {
     overflow: auto;
 }
 
+/* Remove any borders from wrapper and its children */
+#wrapper, #wrapper * {
+    border: none !important;
+    outline: none !important;
+}
+
 /* #expiry {
     display: grid;
     grid-template-columns: repeat(6, auto);
