@@ -1,12 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./templates/**', './static/**'],
+  content: [
+    './templates/**/*.html',
+    './static/labels/**/*.html'
+  ],
   safelist: [
     {
-      pattern: /bg-(red|green|blue)-(100|200|300)/,
+      pattern: /text-(6|7|8|9)xl/,
     },
     {
-      pattern: /text-(2|3|4|5|6|7|8|9)xl/,
+      pattern: /h-(106|300|306|696)/,
+    },
+    {
+      pattern: /w-(106|300|306|991)/,
     },
   ],
   theme: {
@@ -22,6 +28,9 @@ module.exports = {
         '300': '300px',
         '306': '306px',
         '991': '991px'
+      },
+      fontSize: {
+        '10xl': '15rem',
       }
     },
   },

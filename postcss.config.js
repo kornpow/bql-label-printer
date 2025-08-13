@@ -3,9 +3,4 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
   },
-  theme: {
-    fontSize: {
-      '10xl': '15rem',
-    }
-  }
 }
